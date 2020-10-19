@@ -115,6 +115,10 @@ function help(){
   console.log('Type "list" to get the list of tasks\n');
   console.log('Type "remove" to delete last tasks of "remove tasknb" to remove specific task\n');
   console.log('Type "add taskname" to add a new task\n');
+  console.log('Type "check tasknumber" to check a task\n');
+  console.log('Type "uncheck tasknumber" to uncheck a task\n');
+
+  
 
 }
 
