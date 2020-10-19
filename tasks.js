@@ -97,7 +97,14 @@ function quit(){
  * @returns {void}
  */
 function help(){
-  console.log('Type quit or exit to terminate\nType hello to print hello!')
+  console.log('Type "quit" or "exit" to terminate\n');
+  
+  console.log('Type "hello" to print hello!\n');
+
+  console.log('Type "list" to get the list of tasks\n');
+  console.log('Type "remove" to delete last tasks of "remove tasknb" to remove specific task\n');
+  console.log('Type "add taskname" to add a new task\n');
+
 }
 
 function tasks(list){
