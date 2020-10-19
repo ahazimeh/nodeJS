@@ -33,7 +33,7 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
-var list = [['✓','11'],['✓','2'],['','3']];
+var list = [['','11'],['✓','2'],['','3']];
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
@@ -56,6 +56,13 @@ function onDataReceived(text) {
   else if(text.startsWith("edit ")){
     edit(text);
   }
+  else if(text.startsWith("check ")){
+    check(text);
+  }
+  else if(text.startsWith("uncheck ")){
+    uncheck(text);
+  }
+
   else{
     unknownCommand(text);
   }
@@ -148,7 +155,7 @@ function edit(c){
     }
   }
   var str="";
-  if(i==c[1].length){
+  if(i==c[1].length && c.length>2){
     for(let j=2;j<c.length;j++){
       if(j>2)
       str+=" "+c[j];
@@ -157,7 +164,6 @@ function edit(c){
     }
     console.log(list[i][1]);
     list[c[1]-1][1] = str;
-    
   }
   else{
     for(let j=1;j<c.length;j++){
@@ -168,6 +174,14 @@ function edit(c){
     }
     list[list.length-1][1] = str;
   }
+}
+function check(text){
+  text = text.split(" ");
+  list[text[1]-1][0] = '✓';
+}
+function uncheck(text){
+  text = text.split(" ");
+  list[text[1]-1][0] = '';
 }
 
 startApp("Ali Hazimeh")
