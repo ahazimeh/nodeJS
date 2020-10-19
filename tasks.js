@@ -33,7 +33,7 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
-var list = ['23423','234324'];
+var list = [];
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
@@ -44,8 +44,14 @@ function onDataReceived(text) {
   else if(text === 'help\n'){
     help();
   }
-  else if(text === 'list\n'){
+  else if(text.startsWith("list")){
     tasks(list);
+  }
+  else if(text.startsWith("add ")){
+    add(text);
+  }
+  else if(text === 'remove\n' ||text.startsWith("remove ")){
+    remove(text);
   }
   else{
     unknownCommand(text);
@@ -85,13 +91,32 @@ function quit(){
   console.log('Quitting now, goodbye!')
   process.exit();
 }
+/**
+ * list of the commands
+ *
+ * @returns {void}
+ */
 function help(){
   console.log('Type quit or exit to terminate\nType hello to print hello!')
 }
+
 function tasks(list){
   for(var i = 0;i<list.length;i++){
     console.log(list[i]);
   }
+}
+function add(c){
+  c = c.trim();
+  list.push(c.substring(4).trim());
+}
+function remove(c){
+  c = c.trim();
+  if(c.length == 6){
+    list.pop();
+  }
+  else{
+  list.splice(c.substring(7),1);
+}
 }
 
 
