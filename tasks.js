@@ -33,6 +33,7 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
+var list = ['23423','234324'];
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
@@ -42,6 +43,9 @@ function onDataReceived(text) {
   }
   else if(text === 'help\n'){
     help();
+  }
+  else if(text === 'list\n'){
+    tasks(list);
   }
   else{
     unknownCommand(text);
@@ -83,6 +87,11 @@ function quit(){
 }
 function help(){
   console.log('Type quit or exit to terminate\nType hello to print hello!')
+}
+function tasks(list){
+  for(var i = 0;i<list.length;i++){
+    console.log(list[i]);
+  }
 }
 
 
