@@ -33,7 +33,7 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
-var list = [];
+var list = [['✓','11'],['✓','2'],['','3']];
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
@@ -118,29 +118,34 @@ function tasks(list){
 }
 function add(c){
   c = c.trim();
-  list.push(c.substring(4).trim());
+  list.push(["",c.substring(4).trim()]);
 }
 function remove(c){
   c = c.trim();
   if(c.length == 6){
     list.pop();
   }
-  else if(c.substring(7) >=list.length || c.substring(7)<0)
+  else if(c.substring(7) >list.length || c.substring(7)<=0)
   console.log("taks number doesn't exist");
   else{
-  list.splice(c.substring(7),1);
+    let v = parseInt(c.substring(7)) - 1;
+  list.splice(v,1);
 }
 }
 
 function edit(c){
   c = c.replace("\n","");
   c=c.split(" ");
+  console.log(c[1]);
 
   // if(c[1][0]<"3")
   // console.log(c[1][0]);
   for(var i = 0;i<c[1].length;i++){
-    if(c[1][i]<"0" || c[1][i]>"9")
+    if(c[1][i]<"0" || c[1][i]>"9"){
     break;
+    }
+    else{
+    }
   }
   var str="";
   if(i==c[1].length){
@@ -150,7 +155,8 @@ function edit(c){
       else
       str+=c[j]
     }
-    list[i] = str;
+    console.log(list[i][1]);
+    list[c[1]-1][1] = str;
     
   }
   else{
@@ -160,10 +166,8 @@ function edit(c){
       else
       str+=c[j]
     }
-    list[list.length-1] = str;
+    list[list.length-1][1] = str;
   }
 }
 
-
-// The following line starts the application
 startApp("Ali Hazimeh")
