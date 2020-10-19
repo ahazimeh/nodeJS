@@ -53,6 +53,9 @@ function onDataReceived(text) {
   else if(text === 'remove\n' ||text.startsWith("remove ")){
     remove(text);
   }
+  else if(text.startsWith("edit ")){
+    edit(text);
+  }
   else{
     unknownCommand(text);
   }
@@ -100,6 +103,7 @@ function help(){
   console.log('Type "quit" or "exit" to terminate\n');
   
   console.log('Type "hello" to print hello!\n');
+  console.log('Type "hello yourname" to print hello youname!\n');
 
   console.log('Type "list" to get the list of tasks\n');
   console.log('Type "remove" to delete last tasks of "remove tasknb" to remove specific task\n');
@@ -108,7 +112,7 @@ function help(){
 }
 
 function tasks(list){
-  for(var i = 0;i<list.length;i++){
+  for(let i = 0;i<list.length;i++){
     console.log(list[i]);
   }
 }
@@ -126,6 +130,38 @@ function remove(c){
   else{
   list.splice(c.substring(7),1);
 }
+}
+
+function edit(c){
+  c = c.replace("\n","");
+  c=c.split(" ");
+
+  // if(c[1][0]<"3")
+  // console.log(c[1][0]);
+  for(var i = 0;i<c[1].length;i++){
+    if(c[1][i]<"0" || c[1][i]>"9")
+    break;
+  }
+  var str="";
+  if(i==c[1].length){
+    for(let j=2;j<c.length;j++){
+      if(j>2)
+      str+=" "+c[j];
+      else
+      str+=c[j]
+    }
+    list[i] = str;
+    
+  }
+  else{
+    for(let j=1;j<c.length;j++){
+      if(j>1)
+      str+=" "+c[j];
+      else
+      str+=c[j]
+    }
+    list[list.length-1] = str;
+  }
 }
 
 
