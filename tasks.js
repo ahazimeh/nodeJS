@@ -121,6 +121,8 @@ function remove(c){
   if(c.length == 6){
     list.pop();
   }
+  else if(c.substring(7) >=list.length || c.substring(7)<0)
+  console.log("taks number doesn't exist");
   else{
   list.splice(c.substring(7),1);
 }
