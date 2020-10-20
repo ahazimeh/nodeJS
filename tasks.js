@@ -33,7 +33,11 @@ function startApp(name){
  * @param  {string} text data typed by the user
  * @returns {void}
  */
-var list = [['','11'],['✓','2'],['','3']];
+// var list = [['','11'],['✓','2'],['','3']];
+var list = [];
+var fs = require('fs');
+var path="./database.json";
+var path="./test.json"
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
@@ -98,8 +102,40 @@ function hello(c){
  * @returns {void}
  */
 function quit(){
-  console.log('Quitting now, goodbye!')
-  process.exit();
+  console.log('Quitting now, goodbye!');
+  fs.open(path,'w+',function(err,file){
+    if(err) throw err;
+
+
+    fs.writeFileSync(path,"");
+    fs.appendFileSync(path,"{\n");
+    fs.appendFileSync(path,'\t"list": [\n');
+    for(let i=0;i<list.length;i++){
+      fs.appendFileSync(path,"\t\t{\n");
+      fs.appendFileSync(path,'\t\t\t"name" : "'+list[i][1]+"\",\n");
+      if(list[i][0]=="")
+      fs.appendFileSync(path,'\t\t\t"checked" : false\n');
+      else
+      fs.appendFileSync(path,'\t\t\t"checked" : true\n');
+      if(i==list.length-1)
+      fs.appendFileSync(path,"\t\t}\n");
+      else
+      fs.appendFileSync(path,"\t\t},\n")
+      
+    }
+    fs.appendFileSync(path,'\t]\n');
+    
+    fs.appendFileSync(path,"}\n");
+    fs.close(file,function(){
+      process.exit();
+
+    });
+    
+    
+
+
+  });
+  
 }
 /**
  * list of the commands
@@ -148,9 +184,6 @@ function edit(c){
   c = c.replace("\n","");
   c=c.split(" ");
   console.log(c[1]);
-
-  // if(c[1][0]<"3")
-  // console.log(c[1][0]);
   for(var i = 0;i<c[1].length;i++){
     if(c[1][i]<"0" || c[1][i]>"9"){
     break;
@@ -187,5 +220,38 @@ function uncheck(text){
   text = text.split(" ");
   list[text[1]-1][0] = '';
 }
+function create1(){
+  var myargs = process.argv.slice(2);
+  if(typeof(myargs[0])!="undefined"){
+    path ="./"+myargs[0];
+  }
 
+
+
+  
+  // var config = require(path);
+  var config;
+  fs.readFile(path,'utf8',(err,data) => {
+    try{
+    config = JSON.parse(data);
+    for(let i = 0;i<config.list.length;i++){
+      if(config.list[i].checked){
+        list.push(["✓",config.list[i].name]);
+      }
+      else{
+        list.push(["",config.list[i].name]);
+      }
+    
+    }
+  }
+  catch(e){
+
+  }
+  });
+  
+
+
+  
+}
 startApp("Ali Hazimeh")
+create1();
