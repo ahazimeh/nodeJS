@@ -160,7 +160,14 @@ function help(){
 
 function tasks(list){
   for(let i = 0;i<list.length;i++){
-    console.log(list[i]);
+    // ✓
+    if(list[i][0]==""){
+    console.log("List "+i+":" + list[i][1]+"[checked:false]");
+  }
+  else
+  console.log("List "+i+":" + list[i][1]+"[checked:true]");
+  
+    // console.log(list[i][1]);
   }
 }
 function add(c){
